@@ -4,7 +4,6 @@ const userService = new UserService();
 
 async function create(req, res){
     try {
-        console.log(req.body.email)
         const user = await userService.create({email: req.body.email, password: req.body.password});
         return res.status(201).json({
             message:"Succesfully created user",
