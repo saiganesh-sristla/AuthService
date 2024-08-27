@@ -2,6 +2,7 @@ const { JWT_KEY } = require('../config/serverConfig');
 const UserRepository = require('../repository/user-repository');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const {User} = require('../models/index')
 class UserService{
     constructor(){
         this.userRepository = new UserRepository();
@@ -43,6 +44,20 @@ class UserService{
             return response;
         } catch (error) {
             console.log("something went wrong comparing password");
+            throw error;
+        }
+    }
+
+    async getUserByEmail(email){
+        try {
+            const response = await User.findOne({
+                where:{
+                    email:email
+                }
+            })
+            return response
+        } catch (error) {
+            console.log("something went wrong getting email");
             throw error;
         }
     }

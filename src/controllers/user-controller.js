@@ -49,5 +49,5 @@ async function signin(req, res) {
 
 module.exports = {
   create,
-  signin
+  signin,
 };
