@@ -1,8 +1,8 @@
 const express = require("express");
-const bodyparser = require('body-parser');
+const bodyparser = require("body-parser");
 const { PORT } = require("./config/serverConfig");
 const apiRoute = require("./routes/index");
-const {User, roles} = require("./models/index");
+const { User, roles } = require("./models/index");
 const db = require("./models/index");
 const app = express();
 
@@ -12,11 +12,11 @@ function setupAndStartServer() {
 
   app.use("/api", apiRoute);
 
-  app.listen(PORT,async () => {
+  app.listen(PORT, async () => {
     console.log(`Server started at PORT: ${PORT}`);
 
-    if(process.env.SYNC){
-      db.sequelize.sync({alter:true});
+    if (process.env.SYNC) {
+      db.sequelize.sync({ alter: true });
     }
 
     // const u1 = await User.findByPk(9);
@@ -25,7 +25,6 @@ function setupAndStartServer() {
 
     // const response = await u1.hasRole(r1);
     // console.log(response);
-
   });
 }
 

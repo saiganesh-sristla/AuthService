@@ -61,6 +61,28 @@ class UserService{
             throw error;
         }
     }
+
+    async isAuthenticated(token){
+        try {
+            const isTokenVerified = this.verifyToken(token);
+            console.log(isTokenVerified)
+            if(!isTokenVerified){
+                throw {error : "Invalid token"}
+            }
+            const user = await User.findOne({
+                where:{
+                    email : isTokenVerified.email
+                }
+            });
+            if(!user){
+                throw {error: "user corresponding to this token not exist"}
+            }
+            return user;
+        } catch (error) {
+            console.log("something went wrong authenticating the user");
+            throw error;
+        }
+    }
 }
 
 module.exports = UserService;
